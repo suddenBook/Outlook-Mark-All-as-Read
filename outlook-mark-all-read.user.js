@@ -6,6 +6,7 @@
 // @match        https://outlook.live.com/*
 // @match        https://outlook.office.com/*
 // @match        https://outlook.office365.com/*
+// @match        https://outlook.cloud.microsoft/*
 // @run-at       document-start
 // @grant        none
 // ==/UserScript==
