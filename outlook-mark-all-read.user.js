@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Outlook – Mark ALL folders & subfolders as read
+// @name         Outlook - Mark ALL folders & subfolders as read
 // @namespace    https://local/outlook-mark-all-read
 // @version      1.0
 // @description  Adds a button that marks every Outlook (OWA) folder and subfolder as read in one click.
@@ -18,7 +18,7 @@
   // ===================== CONFIG =====================
   const EXCLUDE_NAMES = [];        // folders to leave untouched, e.g. ["Inbox", "Junk Email"]
   const CONCURRENCY   = 6;         // parallel mark requests
-  const DEFAULT_LABEL = '✅ Mark all folders read';
+  const DEFAULT_LABEL = 'Mark all folders read';
 
   // ====== 1. Harvest the live auth token from OWA's own network traffic ======
   let auth = null;
@@ -133,7 +133,7 @@
       const targets = (await listAllFolders()).filter(f => f.unread > 0 && !exclude.includes((f.name || '').toLowerCase()));
       const totalUnread = targets.reduce((s, f) => s + f.unread, 0);
 
-      if (!targets.length) { alert('No unread messages in any folder. 🎉'); return; }
+      if (!targets.length) { alert('No unread messages in any folder.'); return; }
       if (!confirm(`Mark ${targets.length} folder(s) / ${totalUnread} unread message(s) as read?`)) return;
 
       let done = 0, ok = 0;
@@ -149,7 +149,7 @@
       await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
       const failed = targets.length - ok;
-      label(failed ? `Done: ${ok} ok, ${failed} failed` : `✓ Done – ${ok} folders read`);
+      label(failed ? `Done: ${ok} ok, ${failed} failed` : `Done – ${ok} folders read`);
       console.log(`[Mark all read] ${ok}/${targets.length} folders, ${totalUnread} messages cleared.`);
     } catch (e) {
       console.error('[Mark all read]', e);
